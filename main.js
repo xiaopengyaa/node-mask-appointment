@@ -11,10 +11,7 @@ const scheduleList = [
       mobile: '110110110110',
       identityType: '身份证',
       identity: '44078***********',
-      idcard: '身份证,44078***********',
-      commodity_id: '100003',
-      category: '普通防护口罩',
-      number: 10
+      idcard: '身份证,44078***********'
     }
   }
 ]
@@ -30,15 +27,22 @@ const SCKEY = '******'
 
 const start = async function() {
   const list = await maskApi.getMaskList()
-  const shopList = (list[0] && list[0].shop_list) || []
+  // 默认取list第一个
+  const [shopList] = list[0].shop_list
+  const [classList] = shopList.class_list
+  const [commodityList] = classList.commodity_list
   const baseAppointmentData = {
-    zone: list[0].name,
-    shop_id: shopList[0].id,
+    zone: shopList.address,
+    shop_id: shopList.id,
+    commodity_id: commodityList.id,
+    category: commodityList.name,
+    number: commodityList.min_order_number,
     changeable: 'yes',
     time_code: '0',
     wxmsg: 1,
     mail_address: ''
   }
+  console.log(baseAppointmentData)
   scheduleList.forEach(schedule => {
     const { appointment, ...scheduleItem } = schedule
     scheduleJob.start(scheduleItem, async scheduleName => {
@@ -57,7 +61,7 @@ async function getAppointment(data, scheduleName) {
     console.log('data:', res.data)
     // 微信通知
     await maskApi.wxInform(SCKEY, {
-      text: '主人我已经申请预约成功啦！'
+      text: '我已经申请预约成功啦！'
     })
     // 查看预约结果
     scheduleJob.start(maskScheduleItem, async name => {
@@ -66,7 +70,7 @@ async function getAppointment(data, scheduleName) {
         scheduleJob.cancel(name)
         // 微信通知
         await maskApi.wxInform(SCKEY, {
-          text: '主人，预约结果出来啦，可以去查看啦！'
+          text: '预约结果出来啦，可以去查看啦！'
         })
       }
     })
