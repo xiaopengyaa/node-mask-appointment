@@ -1,0 +1,23 @@
+{
+  "name": "mask-appointment",
+  "version": "1.0.0",
+  "description": "a node project for mask-appointment",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xiaopengyaa/node-mask-appointment.git"
+  },
+  "author": "xiaopengyaa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xiaopengyaa/node-mask-appointment/issues"
+  },
+  "homepage": "https://github.com/xiaopengyaa/node-mask-appointment#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "node-schedule": "^1.3.2"
+  }
+}
