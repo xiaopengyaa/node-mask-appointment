@@ -23,7 +23,7 @@ const maskScheduleItem = {
 }
 
 // 微信通知SCKEY
-const SCKEY = 'SCU65034T1c2cc6c083aecfa5c3b42f351f8a62f55db2cfb906692'
+const SCKEY = '******'
 
 // 预约地区
 const ADDRESS = 'guangzhou'
