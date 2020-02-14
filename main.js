@@ -23,11 +23,15 @@ const maskScheduleItem = {
 }
 
 // 微信通知SCKEY
-const SCKEY = '******'
+const SCKEY = 'SCU65034T1c2cc6c083aecfa5c3b42f351f8a62f55db2cfb906692'
+
+// 预约地区
+const ADDRESS = 'guangzhou'
+// const ADDRESS = 'jiangmen'
 
 const start = async function() {
-  const list = await maskApi.getMaskList()
-  // 默认取list第一个
+  const list = await maskApi.getMaskList(ADDRESS)
+  // 默认取第一条（选广州的时候要注意一下！！！）
   const [shopList] = list[0].shop_list
   const [classList] = shopList.class_list
   const [commodityList] = classList.commodity_list
@@ -42,11 +46,11 @@ const start = async function() {
     wxmsg: 1,
     mail_address: ''
   }
-  console.log(baseAppointmentData)
   scheduleList.forEach(schedule => {
     const { appointment, ...scheduleItem } = schedule
     scheduleJob.start(scheduleItem, async scheduleName => {
       const data = Object.assign({}, baseAppointmentData, appointment)
+      console.log(data)
       await getAppointment(data, scheduleName)
     })
   })
@@ -54,7 +58,7 @@ const start = async function() {
 
 // 预约
 async function getAppointment(data, scheduleName) {
-  const res = await maskApi.maskPreorderAdd(data)
+  const res = await maskApi.maskPreorderAdd(data, ADDRESS)
   if (res.errcode === 0) {
     scheduleJob.cancel(scheduleName)
     console.log(`${scheduleName}申请预约成功！`)
@@ -65,7 +69,7 @@ async function getAppointment(data, scheduleName) {
     })
     // 查看预约结果
     scheduleJob.start(maskScheduleItem, async name => {
-      const maskInfo = await maskApi.getMaskInfo()
+      const maskInfo = await maskApi.getMaskInfo(ADDRESS)
       if (maskInfo.personal_center_info.is_open === 1) {
         scheduleJob.cancel(name)
         // 微信通知
