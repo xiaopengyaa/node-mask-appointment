@@ -2,8 +2,8 @@ const { api } = require('../utils')
 
 const url = {
   guangzhou: {
-    maskList: 'https://imgcache.qq.com/cloudsa3/wyj/ypgg_data_prd2020013101.json', // 穗康口罩list
-    maskInfo: 'https://imgcache.qq.com/cloudsa3/wyj/wll_mp_prod_config.json', // 穗康口罩info
+    maskList: 'https://imgcache.gzonline.gov.cn/cloudsa3/wyj/ypgg_data_prd2020013101.json', // 穗康口罩list
+    maskInfo: 'https://imgcache.gzonline.gov.cn/cloudsa3/wyj/wll_mp_prod_config.json', // 穗康口罩info
     preorderAdd: 'https://skyy.gzonline.gov.cn/preorder/add', // 穗康口罩预约
   },
   jiangmen: {
