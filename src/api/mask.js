@@ -11,6 +11,11 @@ const url = {
     maskInfo: 'https://wyj-1301191558.file.myqcloud.com/cloudsa3/uc/wll_mp_dev_config.json', // 江门口罩info
     preorderAdd: 'https://jkjm.jiangmen.cn/preorder/add', // 江门口罩预约
   },
+  shanwei: {
+    // maskList: 'https://wyj-1301191558.file.myqcloud.com/cloudsa3/uc/ypgg_data_prd20200206.json', // 汕尾口罩list
+    maskInfo: 'https://wyj-1301196457.file.myqcloud.com/cloud/wyj/wll_mp_pro_config.json', // 汕尾口罩info
+    preorderAdd: 'https://swgd-yy.tgovcloud.com/preorder/add', // 汕尾口罩预约
+  },
   wxInform(key) {
     return `https://sc.ftqq.com/${key}.send`
   }
@@ -19,19 +24,24 @@ const url = {
 const maskApi = {
   // 获取口罩list
   async getMaskList(address = 'guangzhou') {
-    const data = await api.get(url[address].maskList)
+    const data = await api.get(url[address].maskList, {
+      t: +new Date()
+    })
     return data || []
   },
   // 口罩info
   async getMaskInfo(address = 'guangzhou') {
-    const data = await api.get(url[address].maskInfo)
+    const data = await api.get(url[address].maskInfo, {
+      t: +new Date()
+    })
     return data || {}
   },
   // 口罩预约
   async maskPreorderAdd(data, address = 'guangzhou') {
     const sessionid = {
-      guangzhou: 'a8b799c0-308a-4a30-89b5-74bd77acd3d1',
-      jiangmen: '16c453a1-a25b-405a-a60d-43bbbe565604'
+      guangzhou: '68e195a7-3ab2-4cd2-a57d-d5707c61d771',
+      jiangmen: '8a84b0f6-dd2d-4187-a933-cf14bcaa021d',
+      shanwei: '925211d5-c59c-40a7-b925-7a0cc5e4d071'
     }
     const config = {
       headers: {
