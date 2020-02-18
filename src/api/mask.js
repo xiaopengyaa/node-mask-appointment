@@ -40,7 +40,7 @@ const maskApi = {
   async maskPreorderAdd(data, address = 'guangzhou') {
     const sessionid = {
       guangzhou: '68e195a7-3ab2-4cd2-a57d-d5707c61d771',
-      jiangmen: '8a84b0f6-dd2d-4187-a933-cf14bcaa021d',
+      jiangmen: '4c8c8faf-7eea-4f3b-8757-03df755a6fa0',
       shanwei: '925211d5-c59c-40a7-b925-7a0cc5e4d071'
     }
     const config = {

@@ -25,13 +25,12 @@ const maskScheduleItem = {
 // 微信通知SCKEY
 const SCKEY = '******'
 
-// 预约地区
-const ADDRESS = 'guangzhou'
-// const ADDRESS = 'jiangmen'
+// 预约地区（目前支持江门，广州不支持）
+const ADDRESS = 'jiangmen'
 
 const start = async function() {
   const list = await maskApi.getMaskList(ADDRESS)
-  // 默认取第一条（选广州的时候要注意一下！！！）
+  // 默认取第一条
   const [shopList] = list[0].shop_list
   const [classList] = shopList.class_list
   const [commodityList] = classList.commodity_list

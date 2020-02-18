@@ -1,8 +1,10 @@
 
 const maskApi = require('./mask') // 口罩预约
+const shgzApi = require('./shgz')
 
 const api = {
-  maskApi
+  maskApi,
+  shgzApi
 }
 
 module.exports = api
