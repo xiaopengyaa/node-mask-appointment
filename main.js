@@ -25,8 +25,9 @@ const maskScheduleItem = {
 // 微信通知SCKEY
 const SCKEY = '******'
 
-// 预约地区（目前支持江门，广州不支持）
+// 预约地区（目前支持江门、汕尾，广州不支持）
 const ADDRESS = 'jiangmen'
+// const ADDRESS = 'shanwei'
 
 const start = async function() {
   const list = await maskApi.getMaskList(ADDRESS)
@@ -39,7 +40,7 @@ const start = async function() {
     shop_id: shopList.id,
     commodity_id: commodityList.id,
     category: commodityList.name,
-    number: commodityList.min_order_number,
+    number: commodityList.min_order_number || commodityList.pre_order_number,
     changeable: 'yes',
     time_code: '0',
     wxmsg: 1,
