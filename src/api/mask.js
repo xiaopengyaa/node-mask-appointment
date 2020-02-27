@@ -2,19 +2,25 @@ const { api } = require('../utils')
 
 const url = {
   guangzhou: {
-    maskList: 'https://imgcache.gzonline.gov.cn/cloudsa3/wyj/ypgg_data_prd2020013101.json', // 穗康口罩list
-    maskInfo: 'https://imgcache.gzonline.gov.cn/cloudsa3/wyj/wll_mp_prod_config.json', // 穗康口罩info
-    preorderAdd: 'https://skyy.gzonline.gov.cn/preorder/add', // 穗康口罩预约
+    maskList:
+      'https://imgcache.gzonline.gov.cn/cloudsa3/wyj/ypgg_data_prd2020013101.json', // 穗康口罩list
+    maskInfo:
+      'https://imgcache.gzonline.gov.cn/cloudsa3/wyj/wll_mp_prod_config.json', // 穗康口罩info
+    preorderAdd: 'https://skyy.gzonline.gov.cn/preorder/add' // 穗康口罩预约
   },
   jiangmen: {
-    maskList: 'https://wyj-1301191558.file.myqcloud.com/cloudsa3/uc/ypgg_data_prd20200206.json', // 江门口罩list
-    maskInfo: 'https://wyj-1301191558.file.myqcloud.com/cloudsa3/uc/wll_mp_dev_config.json', // 江门口罩info
-    preorderAdd: 'https://jkjm.jiangmen.cn/preorder/add', // 江门口罩预约
+    maskList:
+      'https://wyj-1301191558.file.myqcloud.com/cloudsa3/uc/ypgg_data_prd20200206.json', // 江门口罩list
+    maskInfo:
+      'https://wyj-1301191558.file.myqcloud.com/cloudsa3/uc/wll_mp_dev_config.json', // 江门口罩info
+    preorderAdd: 'https://jkjm.jiangmen.cn/preorder/add' // 江门口罩预约
   },
   shanwei: {
-    maskList: 'https://wyj-1301196457.file.myqcloud.com/cloud/wyj/ypgg_data_prd.json', // 汕尾口罩list
-    maskInfo: 'https://wyj-1301196457.file.myqcloud.com/cloud/wyj/wll_mp_pro_config.json', // 汕尾口罩info
-    preorderAdd: 'https://swgd-yy.tgovcloud.com/preorder/add', // 汕尾口罩预约
+    maskList:
+      'https://wyj-1301196457.file.myqcloud.com/cloud/wyj/ypgg_data_prd.json', // 汕尾口罩list
+    maskInfo:
+      'https://wyj-1301196457.file.myqcloud.com/cloud/wyj/wll_mp_pro_config.json', // 汕尾口罩info
+    preorderAdd: 'https://swgd-yy.tgovcloud.com/preorder/add' // 汕尾口罩预约
   },
   wxInform(key) {
     return `https://sc.ftqq.com/${key}.send`
@@ -23,8 +29,8 @@ const url = {
 
 const maskApi = {
   // 获取口罩list
-  async getMaskList(address = 'guangzhou') {
-    let data = await api.get(url[address].maskList, {
+  async getMaskList(zone = 'jiangmen') {
+    let data = await api.get(url[zone].maskList, {
       t: +new Date()
     })
     if (typeof data === 'string') {
@@ -33,8 +39,8 @@ const maskApi = {
     return data || []
   },
   // 口罩info
-  async getMaskInfo(address = 'guangzhou') {
-    let data = await api.get(url[address].maskInfo, {
+  async getMaskInfo(zone = 'jiangmen') {
+    let data = await api.get(url[zone].maskInfo, {
       t: +new Date()
     })
     if (typeof data === 'string') {
@@ -43,18 +49,13 @@ const maskApi = {
     return data || {}
   },
   // 口罩预约
-  async maskPreorderAdd(data, address = 'guangzhou') {
-    const sessionid = {
-      guangzhou: '68e195a7-3ab2-4cd2-a57d-d5707c61d771',
-      jiangmen: 'dd7322c3-73cf-4bba-b7d8-64dc7bcc8f45',
-      shanwei: '147633a5-cf91-4233-934e-1601a4bb62f8'
-    }
+  async maskPreorderAdd(data, { zone = 'jiangmen', sessionId }) {
     const config = {
       headers: {
-        sessionid: sessionid[address]
+        sessionid: sessionId
       }
     }
-    const res = await api.post(url[address].preorderAdd, data, config)
+    const res = await api.post(url[zone].preorderAdd, data, config)
     return res
   },
   // 微信通知

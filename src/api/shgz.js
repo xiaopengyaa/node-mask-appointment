@@ -13,20 +13,20 @@ const url = {
 
 const maskApi = {
   // 获取口罩list
-  async getMaskList(address = 'zhanjiang') {
-    const data = await api.get(url[address].maskList, {
+  async getMaskList(zone = 'zhanjiang') {
+    const data = await api.get(url[zone].maskList, {
       t: +new Date()
     })
     return data || []
   },
   // 口罩预约
-  async maskPreorderAdd(data, address = 'zhanjiang') {
+  async maskPreorderAdd(data, zone = 'zhanjiang') {
     const config = {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       }
     }
-    const res = await api.post(url[address].preorderAdd, qs.stringify(data), config)
+    const res = await api.post(url[zone].preorderAdd, qs.stringify(data), config)
     return res
   },
   // 微信通知
