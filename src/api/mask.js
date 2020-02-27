@@ -22,6 +22,13 @@ const url = {
       'https://wyj-1301196457.file.myqcloud.com/cloud/wyj/wll_mp_pro_config.json', // 汕尾口罩info
     preorderAdd: 'https://swgd-yy.tgovcloud.com/preorder/add' // 汕尾口罩预约
   },
+  heyuan: {
+    maskList:
+      'https://wyj-1300512385.file.myqcloud.com/cloudsa3/wyj/ypgg_data_prd20200206.json', // 河源口罩list
+    maskInfo:
+      'https://wyj-1300512385.file.myqcloud.com/cloudsa3/wyj/wll_mp_dev_config.json', // 河源口罩info
+    preorderAdd: 'https://hygd-yy.tgovcloud.com/preorder/add' // 河源口罩预约
+  },
   wxInform(key) {
     return `https://sc.ftqq.com/${key}.send`
   }

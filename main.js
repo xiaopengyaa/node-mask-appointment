@@ -8,7 +8,7 @@ const scheduleList = [
     rule: '*/2 * * * * *', // 每2s轮循一次
     params: {
       sessionId: 'xxxxxxxxxx', // 对应微信小程序登录sessionId（多账号预约时不能相同）
-      zone: 'jiangmen', // 预约地区（目前支持江门、汕尾，广州不支持）
+      zone: 'jiangmen', // 预约地区（目前支持江门jiangmen、汕尾shanwei、河源heyuan，广州不支持）
       sckey: 'xxxxxxxxxx' // 微信通知SCKEY
     },
     appointment: {
@@ -37,11 +37,12 @@ const start = function() {
     } = schedule
     const list = await maskApi.getMaskList(zone)
     // 默认取第一条
+    const cityName = list[0].name
     const [shopList] = list[0].shop_list
     const [classList] = shopList.class_list
     const [commodityList] = classList.commodity_list
     const baseAppointmentData = {
-      zone: shopList.address,
+      zone: cityName,
       shop_id: shopList.id,
       commodity_id: commodityList.id,
       category: commodityList.name,
